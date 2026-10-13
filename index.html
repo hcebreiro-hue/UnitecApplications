@@ -254,10 +254,14 @@
             <textarea id="f-msg" name="message" rows="5" required aria-describedby="f-msg-error"></textarea>
             <p id="f-msg-error" class="field-error" aria-live="polite"></p>
           </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="f-website">Website</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
           <button type="submit" class="btn btn-primary btn-block" data-i18n="form_submit">Enviar consulta</button>
           <p id="form-status" class="form-status" role="alert" aria-live="assertive"></p>
-          <p id="form-fallback" class="form-fallback" aria-live="polite" hidden><span data-i18n="form_sent">Si no se abrió tu app de correo, podés enviarlo desde Gmail o copiar el mensaje.</span> <a id="form-gmail" href="#" target="_blank" rel="noopener" data-i18n="mail_gmail">Abrir en Gmail</a> · <button type="button" id="form-copy" class="link-button" data-i18n="form_copy">Copiar mensaje</button></p>
-          <p class="form-note"><span data-i18n="form_note">Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.</span> <span data-i18n="form_privacy_prefix">Al enviar, aceptás la</span> <a href="privacidad.html" data-i18n="form_privacy_link">política de privacidad</a>.</p>
+          <p id="form-fallback" class="form-fallback" aria-live="polite" hidden><span data-i18n="form_sent">No pudimos enviar el mensaje desde el sitio. Podés enviarlo desde Gmail o copiar el mensaje.</span> <a id="form-gmail" href="#" target="_blank" rel="noopener" data-i18n="mail_gmail">Abrir en Gmail</a> · <button type="button" id="form-copy" class="link-button" data-i18n="form_copy">Copiar mensaje</button></p>
+          <p class="form-note"><span data-i18n="form_note">Tu consulta se envía a nuestro correo. No guardamos nada en este sitio.</span> <span data-i18n="form_privacy_prefix">Al enviar, aceptás la</span> <a href="privacidad.html" data-i18n="form_privacy_link">política de privacidad</a>.</p>
         </form>
       </div>
     </section>

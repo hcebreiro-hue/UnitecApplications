@@ -477,6 +477,8 @@ p { margin: 0 0 1rem; }
 }
 .field-error:empty,
 .form-status:empty { display: none; }
+.form-status.is-ok { color: #15803d; }
+.hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form-note { font-size: 0.82rem; color: var(--muted); margin: 1rem 0 0; }
 .form-note a { color: var(--accent-strong); font-weight: 700; }
 .mail-help { font-size: 0.9rem; }

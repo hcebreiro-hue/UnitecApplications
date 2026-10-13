@@ -6,6 +6,7 @@
 const CONFIG = {
   whatsappNumber: "5491166391260",          // Código de país + área + número, sin + ni espacios (número de Unitec)
   contactEmail: "contacto@unitecapplications.com",
+  mailEndpoint: "https://unitec-mail.hcebreiro.workers.dev", // Worker que envía el formulario por Email Service
   companyName: "Unitec Applications",
 };
 
@@ -106,9 +107,12 @@ const TEXTS = {
     mail_gmail: "Abrir en Gmail",
     mail_copy: "Copiar email",
     mail_copied: "¡Copiado!",
-    form_sent: "Si no se abrió tu app de correo, podés enviarlo desde Gmail o copiar el mensaje.",
+    form_sent: "No pudimos enviar el mensaje desde el sitio. Podés enviarlo desde Gmail o copiar el mensaje.",
     form_copy: "Copiar mensaje",
-    form_note: "Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.",
+    form_sending: "Enviando...",
+    form_ok: "¡Gracias! Recibimos tu consulta y te respondemos a la brevedad.",
+    form_fail: "No pudimos enviar tu consulta. Probá de nuevo o usá una de las alternativas.",
+    form_note: "Tu consulta se envía a nuestro correo. No guardamos nada en este sitio.",
     form_error: "Revisá los campos marcados antes de enviar.",
     form_error_name: "Ingresá tu nombre.",
     form_error_email: "Ingresá un email válido.",
@@ -234,9 +238,12 @@ const TEXTS = {
     mail_gmail: "Open in Gmail",
     mail_copy: "Copy email",
     mail_copied: "Copied!",
-    form_sent: "If your email app didn't open, you can send it from Gmail or copy the message.",
+    form_sent: "We couldn't send the message from the site. You can send it from Gmail or copy the message.",
     form_copy: "Copy message",
-    form_note: "Submitting opens your email app with the details filled in. We don't store anything on this site.",
+    form_sending: "Sending...",
+    form_ok: "Thank you! We received your inquiry and will get back to you shortly.",
+    form_fail: "We couldn't send your inquiry. Please try again or use one of the alternatives.",
+    form_note: "Your inquiry is sent to our email. We don't store anything on this site.",
     form_error: "Please review the highlighted fields before sending.",
     form_error_name: "Enter your name.",
     form_error_email: "Enter a valid email address.",
@@ -417,7 +424,10 @@ function setupForm() {
     error.textContent = message;
   }
 
-  form.addEventListener("submit", (event) => {
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const fallback = document.getElementById("form-fallback");
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const lang = document.documentElement.lang || "es";
     const dict = TEXTS[lang];
@@ -433,16 +443,16 @@ function setupForm() {
     const valid = [form.name, form.email, form.message].every((field) => field.getAttribute("aria-invalid") === "false");
 
     if (!valid) {
+      status.classList.remove("is-ok");
       status.textContent = dict.form_error;
       form.querySelector('[aria-invalid="true"]').focus();
       return;
     }
 
-    status.textContent = "";
-
     const typeSelect = form.type;
     const typeLabel = typeSelect.options[typeSelect.selectedIndex].text;
 
+    // Respaldo manual (Gmail / copiar) por si el envío automático falla.
     const body = [
       `${dict.mail_from}: ${name}`,
       `${dict.mail_reply}: ${email}`,
@@ -451,18 +461,40 @@ function setupForm() {
       message,
     ].join("\n");
 
-    const mailto =
-      `mailto:${CONFIG.contactEmail}` +
-      `?subject=${encodeURIComponent(`${dict.mail_subject_prefix}: ${name}`)}` +
-      `&body=${encodeURIComponent(body)}`;
-
     const subject = `${dict.mail_subject_prefix}: ${name}`;
     document.getElementById("form-gmail").href = gmailUrl(subject, body);
     const copyBtn = document.getElementById("form-copy");
     copyBtn.onclick = () => copyText(`${CONFIG.contactEmail}\n${subject}\n\n${body}`, copyBtn);
-    document.getElementById("form-fallback").hidden = false;
 
-    window.location.href = mailto;
+    fallback.hidden = true;
+    status.classList.remove("is-ok");
+    status.textContent = dict.form_sending;
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(CONFIG.mailEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          type: typeSelect.value,
+          message,
+          website: form.website.value,
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || `http_${response.status}`);
+
+      form.reset();
+      status.classList.add("is-ok");
+      status.textContent = dict.form_ok;
+    } catch (error) {
+      status.textContent = dict.form_fail;
+      fallback.hidden = false;
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }
 
