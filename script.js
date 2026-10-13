@@ -641,6 +641,41 @@ function setupProjectPanel() {
   });
 }
 
+// ---------- Animaciones de entrada al hacer scroll ----------
+function setupReveal() {
+  if (!("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const targets = [];
+  const add = (el, index) => {
+    el.classList.add("reveal");
+    if (index > 0) el.classList.add("reveal-d" + Math.min(index, 3));
+    targets.push(el);
+  };
+
+  // Elementos sueltos
+  document.querySelectorAll(
+    ".section-head, .project-featured, .about > div, .contact > div"
+  ).forEach((el) => add(el, 0));
+
+  // Grupos con entrada escalonada
+  document.querySelectorAll(".bento, .steps, .project-placeholders, .values").forEach((group) => {
+    Array.from(group.children).forEach((el, i) => add(el, i % 4));
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+  );
+  targets.forEach((el) => observer.observe(el));
+}
+
 // ---------- Inicio ----------
 document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
@@ -660,4 +695,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setupMobileMenu();
   setupProjectPanel();
   setupTurnstile();
+  setupReveal();
 });
