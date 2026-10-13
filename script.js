@@ -102,6 +102,12 @@ const TEXTS = {
     type_other: "Otro",
     form_msg: "Contanos tu proyecto",
     form_submit: "Enviar consulta",
+    mail_help: "¿No se abre tu app de correo?",
+    mail_gmail: "Abrir en Gmail",
+    mail_copy: "Copiar email",
+    mail_copied: "¡Copiado!",
+    form_sent: "Si no se abrió tu app de correo, podés enviarlo desde Gmail o copiar el mensaje.",
+    form_copy: "Copiar mensaje",
     form_note: "Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.",
     form_error: "Revisá los campos marcados antes de enviar.",
     form_error_name: "Ingresá tu nombre.",
@@ -224,6 +230,12 @@ const TEXTS = {
     type_other: "Other",
     form_msg: "Tell us about your project",
     form_submit: "Send inquiry",
+    mail_help: "Your email app doesn't open?",
+    mail_gmail: "Open in Gmail",
+    mail_copy: "Copy email",
+    mail_copied: "Copied!",
+    form_sent: "If your email app didn't open, you can send it from Gmail or copy the message.",
+    form_copy: "Copy message",
     form_note: "Submitting opens your email app with the details filled in. We don't store anything on this site.",
     form_error: "Please review the highlighted fields before sending.",
     form_error_name: "Enter your name.",
@@ -359,6 +371,37 @@ function updateContactLinks(lang) {
     direct.href = `mailto:${CONFIG.contactEmail}`;
     direct.textContent = CONFIG.contactEmail;
   }
+
+  const gmail = document.getElementById("gmail-link");
+  if (gmail) gmail.href = gmailUrl(dict.mail_subject_prefix, "");
+}
+
+function gmailUrl(subject, body) {
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONFIG.contactEmail)}` +
+    `&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Copia texto al portapapeles y cambia un momento la etiqueta del botón.
+async function copyText(text, button) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+  }
+  const lang = document.documentElement.lang || "es";
+  const original = button.textContent;
+  button.textContent = TEXTS[lang].mail_copied;
+  setTimeout(() => { button.textContent = original; }, 2000);
+}
+
+function setupCopyEmail() {
+  const btn = document.getElementById("copy-email");
+  if (btn) btn.addEventListener("click", () => copyText(CONFIG.contactEmail, btn));
 }
 
 // ---------- Formulario ----------
@@ -412,6 +455,12 @@ function setupForm() {
       `mailto:${CONFIG.contactEmail}` +
       `?subject=${encodeURIComponent(`${dict.mail_subject_prefix}: ${name}`)}` +
       `&body=${encodeURIComponent(body)}`;
+
+    const subject = `${dict.mail_subject_prefix}: ${name}`;
+    document.getElementById("form-gmail").href = gmailUrl(subject, body);
+    const copyBtn = document.getElementById("form-copy");
+    copyBtn.onclick = () => copyText(`${CONFIG.contactEmail}\n${subject}\n\n${body}`, copyBtn);
+    document.getElementById("form-fallback").hidden = false;
 
     window.location.href = mailto;
   });
@@ -485,6 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   applyLang(detectLang());
   setupForm();
+  setupCopyEmail();
   setupMobileMenu();
   setupProjectPanel();
 });
