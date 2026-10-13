@@ -501,6 +501,13 @@ p { margin: 0 0 1rem; }
 .prose h2 { margin-top: 2rem; }
 .prose .lead { color: var(--muted); }
 
+/* ---------- Anti-spam (Turnstile) y página 404 ---------- */
+.turnstile-box { margin: 0 0 1rem; }
+.turnstile-box:empty { display: none; }
+.notfound { text-align: center; }
+.notfound .lead { margin-inline: auto; }
+.notfound .btn { margin-top: 0.5rem; }
+
 /* ---------- Footer (oscuro) ---------- */
 .site-footer {
   background: var(--dark);

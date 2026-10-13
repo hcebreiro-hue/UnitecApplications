@@ -19,13 +19,32 @@ Editá el objeto `CONFIG` al inicio de `script.js`:
 const CONFIG = {
   whatsappNumber: "5491166391260",
   contactEmail: "contacto@unitecapplications.com",
+  mailEndpoint: "https://unitec-mail.hcebreiro.workers.dev",
+  turnstileSiteKey: "",
   companyName: "Unitec Applications",
 };
 ```
 
 - `whatsappNumber`: número completo con código de país y área, sin `+`, espacios ni guiones.
-- `contactEmail`: email de contacto utilizado en los enlaces y en el formulario `mailto:`.
+- `contactEmail`: email de contacto utilizado en los enlaces y como respaldo (Gmail / copiar).
+- `mailEndpoint`: URL del Worker `unitec-mail` que envía el formulario (código en `worker/unitec-mail.js`).
+- `turnstileSiteKey`: clave pública de Cloudflare Turnstile. Vacía = sin verificación anti-spam.
 - `companyName`: nombre utilizado en los datos estructurados de SEO.
+
+## Worker del formulario (`worker/unitec-mail.js`)
+
+Se pega en el Worker `unitec-mail` de Cloudflare. Configuración:
+
+- Binding **Servicio de correo electrónico** con nombre `EMAIL`.
+- Variable `TO`: casilla que recibe las consultas.
+- Secreto opcional `TURNSTILE_SECRET`: si existe, el Worker exige y valida el token de Turnstile.
+- Variable opcional `AUTOREPLY` = `1`: envía un aviso de recepción al cliente (requiere plan Workers Paid).
+
+## Archivos de publicación
+
+- `_headers`: cabeceras de seguridad (CSP, nosniff, etc.) y caché de `/assets/*`. Si agregás un dominio externo (analítica, otro Worker), sumalo a la CSP.
+- `404.html`: página de error propia. Cloudflare la usa solo con `not_found_handling = "404-page"` en la configuración de assets del Worker.
+- Al publicar con **Direct Upload** subí solo el sitio: `index.html`, `privacidad.html`, `404.html`, `styles.css`, `script.js`, `robots.txt`, `sitemap.xml`, `_headers` y `assets/`. No subas `worker/`, `Logo/` ni `README.md`.
 
 El JSON-LD de tipo `Organization` se genera desde este bloque al cargar la página, por lo que email, teléfono y nombre quedan sincronizados.
 

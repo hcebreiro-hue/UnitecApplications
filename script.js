@@ -7,6 +7,7 @@ const CONFIG = {
   whatsappNumber: "5491166391260",          // Código de país + área + número, sin + ni espacios (número de Unitec)
   contactEmail: "contacto@unitecapplications.com",
   mailEndpoint: "https://unitec-mail.hcebreiro.workers.dev", // Worker que envía el formulario por Email Service
+  turnstileSiteKey: "",                       // Clave pública (sitekey) de Cloudflare Turnstile. Vacía = sin verificación anti-spam
   companyName: "Unitec Applications",
 };
 
@@ -75,10 +76,10 @@ const TEXTS = {
     proj1_rates_cap: "Tarifas",
     proj1_expenses_cap: "Auto",
     proj1_link: "Descargar manual completo (PDF)",
-    proj2_title: "Proyecto 2",
-    proj2_text: "Descripción breve del proyecto. Reemplazá este texto con los detalles reales.",
-    proj3_title: "Proyecto 3",
-    proj3_text: "Descripción breve del proyecto. Reemplazá este texto con los detalles reales.",
+    proj2_title: "Reservas de turnos médicos",
+    proj2_text: "Aplicación para reservar y administrar los turnos de un consultorio médico.",
+    proj3_title: "Gestión de consorcios",
+    proj3_text: "Aplicación para la administración de consorcios.",
 
     about_eyebrow: "Nosotros",
     about_title: "Unitec Applications",
@@ -117,6 +118,7 @@ const TEXTS = {
     form_error_name: "Ingresá tu nombre.",
     form_error_email: "Ingresá un email válido.",
     form_error_message: "Contanos un poco más: el mensaje debe tener al menos 10 caracteres.",
+    form_error_captcha: "Completá la verificación de seguridad antes de enviar.",
     form_privacy_prefix: "Al enviar, aceptás la",
     form_privacy_link: "Política de privacidad",
 
@@ -128,13 +130,23 @@ const TEXTS = {
     privacy_title: "Política de privacidad",
     privacy_intro: "En Unitec Applications respetamos tu privacidad y minimizamos el tratamiento de datos.",
     privacy_data_title: "Datos del formulario",
-    privacy_data_text: "El formulario no guarda datos en este sitio ni los envía a un servidor. Al enviarlo, se abre tu programa de correo con la información que ingresaste para que puedas decidir si querés enviarla.",
+    privacy_data_text: "Al enviar el formulario, tu nombre, email y mensaje se transmiten a un servicio propio de Unitec Applications alojado en Cloudflare, que los reenvía por correo electrónico a nuestra casilla. No los guardamos en una base de datos ni en este sitio, y los usamos únicamente para responder tu consulta.",
+    privacy_providers_title: "Proveedores y servicios de terceros",
+    privacy_providers_text: "El sitio y el envío del formulario funcionan sobre Cloudflare, que puede registrar datos técnicos de conexión (como la dirección IP) por motivos de seguridad y funcionamiento. Las tipografías se cargan desde Google Fonts, por lo que tu navegador se conecta a los servidores de Google al abrir el sitio.",
+    privacy_spam_text: "Para evitar envíos automáticos de spam, el formulario puede usar Cloudflare Turnstile, que verifica que quien envía es una persona sin pedirte resolver acertijos y puede procesar datos técnicos de tu navegador.",
     privacy_tracking_title: "Cookies y analítica",
     privacy_tracking_text: "No usamos cookies de analítica, publicidad ni seguimiento de terceros.",
     privacy_contact_title: "Contacto",
     privacy_contact_text: "Si nos escribís por email o WhatsApp, usaremos tus datos únicamente para responder tu consulta.",
     privacy_meta_title: "Unitec Applications | Política de privacidad",
     privacy_meta_description: "Política de privacidad de Unitec Applications.",
+
+    notfound_eyebrow: "Error 404",
+    notfound_title: "No encontramos esa página",
+    notfound_text: "La dirección que buscás no existe o fue movida. Podés volver al inicio o escribirnos desde la sección de contacto.",
+    notfound_cta: "Volver al inicio",
+    notfound_meta_title: "Unitec Applications | Página no encontrada",
+    notfound_meta_description: "La página que buscás no existe.",
 
     wa_message: "Hola, quisiera pedir un presupuesto para una app Android.",
     mail_subject_prefix: "Consulta desde el sitio",
@@ -206,10 +218,10 @@ const TEXTS = {
     proj1_rates_cap: "Rates",
     proj1_expenses_cap: "Car",
     proj1_link: "Download full manual (PDF)",
-    proj2_title: "Project 2",
-    proj2_text: "Short project description. Replace this text with the real details.",
-    proj3_title: "Project 3",
-    proj3_text: "Short project description. Replace this text with the real details.",
+    proj2_title: "Medical appointment booking",
+    proj2_text: "An app to book and manage appointments for a medical practice.",
+    proj3_title: "Building management",
+    proj3_text: "An app for managing residential buildings and condominiums.",
 
     about_eyebrow: "About",
     about_title: "Unitec Applications",
@@ -248,6 +260,7 @@ const TEXTS = {
     form_error_name: "Enter your name.",
     form_error_email: "Enter a valid email address.",
     form_error_message: "Tell us a little more: the message must be at least 10 characters long.",
+    form_error_captcha: "Complete the security check before sending.",
     form_privacy_prefix: "By submitting, you accept the",
     form_privacy_link: "Privacy policy",
 
@@ -259,13 +272,23 @@ const TEXTS = {
     privacy_title: "Privacy policy",
     privacy_intro: "At Unitec Applications, we respect your privacy and minimize data processing.",
     privacy_data_title: "Form data",
-    privacy_data_text: "The form does not store data on this site or send it to a server. When you submit it, your email app opens with the information you entered so you can decide whether to send it.",
+    privacy_data_text: "When you submit the form, your name, email and message are sent to a Unitec Applications service hosted on Cloudflare, which forwards them by email to our inbox. We do not store them in a database or on this site, and we use them only to reply to your inquiry.",
+    privacy_providers_title: "Providers and third-party services",
+    privacy_providers_text: "The site and the form delivery run on Cloudflare, which may log technical connection data (such as the IP address) for security and operational reasons. Fonts are loaded from Google Fonts, so your browser connects to Google's servers when the site opens.",
+    privacy_spam_text: "To prevent automated spam, the form may use Cloudflare Turnstile, which checks that the sender is a person without asking you to solve puzzles, and may process technical data from your browser.",
     privacy_tracking_title: "Cookies and analytics",
     privacy_tracking_text: "We do not use analytics, advertising or third-party tracking cookies.",
     privacy_contact_title: "Contact",
     privacy_contact_text: "If you contact us by email or WhatsApp, we will use your data only to reply to your inquiry.",
     privacy_meta_title: "Unitec Applications | Privacy policy",
     privacy_meta_description: "Privacy policy for Unitec Applications.",
+
+    notfound_eyebrow: "Error 404",
+    notfound_title: "We couldn't find that page",
+    notfound_text: "The address you are looking for doesn't exist or has moved. You can go back to the home page or write to us from the contact section.",
+    notfound_cta: "Back to home",
+    notfound_meta_title: "Unitec Applications | Page not found",
+    notfound_meta_description: "The page you are looking for does not exist.",
 
     wa_message: "Hi, I would like a quote for an Android app.",
     mail_subject_prefix: "Inquiry from the website",
@@ -334,6 +357,12 @@ function getPageMetadata(lang) {
     return {
       title: dict.privacy_meta_title,
       description: dict.privacy_meta_description,
+    };
+  }
+  if (document.body.dataset.page === "notfound") {
+    return {
+      title: dict.notfound_meta_title,
+      description: dict.notfound_meta_description,
     };
   }
 
@@ -449,6 +478,13 @@ function setupForm() {
       return;
     }
 
+    // Verificación anti-spam (solo si hay clave de Turnstile configurada).
+    if (CONFIG.turnstileSiteKey && !turnstileState.token) {
+      status.classList.remove("is-ok");
+      status.textContent = dict.form_error_captcha;
+      return;
+    }
+
     const typeSelect = form.type;
     const typeLabel = typeSelect.options[typeSelect.selectedIndex].text;
 
@@ -481,6 +517,8 @@ function setupForm() {
           type: typeSelect.value,
           message,
           website: form.website.value,
+          lang,
+          turnstileToken: turnstileState.token,
         }),
       });
       const result = await response.json().catch(() => ({}));
@@ -490,12 +528,55 @@ function setupForm() {
       status.classList.add("is-ok");
       status.textContent = dict.form_ok;
     } catch (error) {
-      status.textContent = dict.form_fail;
-      fallback.hidden = false;
+      const captchaFailed = error.message === "captcha_failed";
+      status.textContent = captchaFailed ? dict.form_error_captcha : dict.form_fail;
+      fallback.hidden = captchaFailed;
     } finally {
       submitBtn.disabled = false;
+      resetTurnstile();
     }
   });
+}
+
+// ---------- Anti-spam: Cloudflare Turnstile ----------
+// Solo se activa si CONFIG.turnstileSiteKey tiene valor y existe el contenedor #turnstile-box.
+const turnstileState = { widgetId: null, token: "", loading: false };
+
+function renderTurnstile() {
+  const box = document.getElementById("turnstile-box");
+  if (!CONFIG.turnstileSiteKey || !box || !window.turnstile) return;
+
+  if (turnstileState.widgetId !== null) {
+    window.turnstile.remove(turnstileState.widgetId);
+    turnstileState.widgetId = null;
+  }
+  turnstileState.token = "";
+  turnstileState.widgetId = window.turnstile.render(box, {
+    sitekey: CONFIG.turnstileSiteKey,
+    language: document.documentElement.lang || "es",
+    theme: "light",
+    callback: (token) => { turnstileState.token = token; },
+    "expired-callback": () => { turnstileState.token = ""; },
+    "error-callback": () => { turnstileState.token = ""; },
+  });
+}
+
+function resetTurnstile() {
+  turnstileState.token = "";
+  if (window.turnstile && turnstileState.widgetId !== null) {
+    window.turnstile.reset(turnstileState.widgetId);
+  }
+}
+
+function setupTurnstile() {
+  const box = document.getElementById("turnstile-box");
+  if (!CONFIG.turnstileSiteKey || !box || turnstileState.loading) return;
+  turnstileState.loading = true;
+  const script = document.createElement("script");
+  script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+  script.async = true;
+  script.onload = renderTurnstile;
+  document.head.appendChild(script);
 }
 
 // ---------- Menú móvil ----------
@@ -562,11 +643,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (year) year.textContent = new Date().getFullYear();
 
   const select = document.getElementById("lang-select");
-  if (select) select.addEventListener("change", (e) => applyLang(e.target.value));
+  if (select) {
+    select.addEventListener("change", (e) => {
+      applyLang(e.target.value);
+      renderTurnstile(); // vuelve a dibujar el widget en el idioma elegido
+    });
+  }
 
   applyLang(detectLang());
   setupForm();
   setupCopyEmail();
   setupMobileMenu();
   setupProjectPanel();
+  setupTurnstile();
 });
