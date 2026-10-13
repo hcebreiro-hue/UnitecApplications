@@ -22,7 +22,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -65,19 +65,30 @@
 
     <!-- HERO -->
     <section id="inicio" class="hero">
-      <div class="container hero-inner">
-        <p class="eyebrow" data-i18n="hero_eyebrow">Desarrollo de apps Android</p>
-        <h1 data-i18n="hero_title">Apps Android a medida, pensadas para tu negocio</h1>
-        <p class="lead" data-i18n="hero_lead">Diseñamos, desarrollamos y publicamos aplicaciones móviles con tecnología moderna, código mantenible y acompañamiento real en cada etapa.</p>
-        <div class="hero-actions">
-          <a href="#contacto" class="btn btn-primary" data-i18n="hero_cta_primary">Pedir presupuesto</a>
-          <a href="#servicios" class="btn btn-ghost" data-i18n="hero_cta_secondary">Ver servicios</a>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="hero_eyebrow">Desarrollo de apps Android</p>
+          <h1><span data-i18n="hero_title_pre">Apps Android </span><span class="hl" data-i18n="hero_title_hl">a medida</span><span data-i18n="hero_title_post">, pensadas para tu negocio</span></h1>
+          <p class="lead" data-i18n="hero_lead">Diseñamos, desarrollamos y publicamos aplicaciones móviles con tecnología moderna, código mantenible y acompañamiento real en cada etapa.</p>
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary" data-i18n="hero_cta_primary">Pedir presupuesto</a>
+            <a href="#servicios" class="btn btn-ghost" data-i18n="hero_cta_secondary">Ver servicios</a>
+          </div>
+          <ul class="hero-stats">
+            <li><strong data-i18n="stat1_value">Kotlin</strong><span data-i18n="stat1_label">Lenguaje oficial de Android</span></li>
+            <li><strong data-i18n="stat2_value">Compose</strong><span data-i18n="stat2_label">Interfaces modernas y fluidas</span></li>
+            <li><strong data-i18n="stat3_value">Google Play</strong><span data-i18n="stat3_label">Publicación y mantenimiento</span></li>
+          </ul>
         </div>
-        <ul class="hero-stats">
-          <li><strong data-i18n="stat1_value">Kotlin</strong><span data-i18n="stat1_label">Lenguaje oficial de Android</span></li>
-          <li><strong data-i18n="stat2_value">Compose</strong><span data-i18n="stat2_label">Interfaces modernas y fluidas</span></li>
-          <li><strong data-i18n="stat3_value">Google Play</strong><span data-i18n="stat3_label">Publicación y mantenimiento</span></li>
-        </ul>
+
+        <div class="hero-visual">
+          <div class="phone phone-back">
+            <img src="assets/mi-chofer-privado-viajes.png" alt="Pantalla de calendario y gestión de viajes" data-i18n-alt="proj1_trips_alt" width="390" height="844" />
+          </div>
+          <div class="phone phone-front">
+            <img src="assets/mi-chofer-privado-inicio.png" alt="Pantalla de inicio con resumen mensual y próximos viajes" data-i18n-alt="proj1_home_alt" width="390" height="844" fetchpriority="high" />
+          </div>
+        </div>
       </div>
     </section>
 

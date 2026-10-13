@@ -24,7 +24,9 @@ const TEXTS = {
     menu_close: "Cerrar menú",
 
     hero_eyebrow: "Desarrollo de apps Android",
-    hero_title: "Apps Android a medida, pensadas para tu negocio",
+    hero_title_pre: "Apps Android ",
+    hero_title_hl: "a medida",
+    hero_title_post: ", pensadas para tu negocio",
     hero_lead: "Diseñamos, desarrollamos y publicamos aplicaciones móviles con tecnología moderna, código mantenible y acompañamiento real en cada etapa.",
     hero_cta_primary: "Pedir presupuesto",
     hero_cta_secondary: "Ver servicios",
@@ -166,7 +168,9 @@ const TEXTS = {
     menu_close: "Close menu",
 
     hero_eyebrow: "Android app development",
-    hero_title: "Custom Android apps, built for your business",
+    hero_title_pre: "",
+    hero_title_hl: "Custom",
+    hero_title_post: " Android apps, built for your business",
     hero_lead: "We design, develop and publish mobile applications with modern technology, maintainable code and real support at every stage.",
     hero_cta_primary: "Request a quote",
     hero_cta_secondary: "View services",
