@@ -7,7 +7,7 @@ const CONFIG = {
   whatsappNumber: "5491166391260",          // Código de país + área + número, sin + ni espacios (número de Unitec)
   contactEmail: "contacto@unitecapplications.com",
   mailEndpoint: "https://unitec-mail.hcebreiro.workers.dev", // Worker que envía el formulario por Email Service
-  turnstileSiteKey: "",                       // Clave pública (sitekey) de Cloudflare Turnstile. Vacía = sin verificación anti-spam
+  turnstileSiteKey: "0x4AAAAAAFV9QGRjMqgA5FJy",                       // Clave pública (sitekey) de Cloudflare Turnstile. Vacía = sin verificación anti-spam
   companyName: "Unitec Applications",
 };
 
