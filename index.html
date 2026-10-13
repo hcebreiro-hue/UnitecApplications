@@ -18,7 +18,8 @@
   <meta name="twitter:description" content="Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo." />
   <meta name="twitter:image" content="https://unitecapplications.com/assets/og-image.png" />
   <script id="organization-schema" type="application/ld+json"></script>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d1121b'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -29,8 +30,7 @@
   <header class="site-header">
     <div class="container nav">
       <a href="#inicio" class="brand" aria-label="Unitec Applications">
-        <span class="brand-mark" aria-hidden="true">U</span>
-        <span class="brand-text">Unitec <strong>Applications</strong></span>
+        <img class="brand-logo" src="assets/logo-unitec-applications.png" alt="Unitec Applications" width="358" height="164" />
       </a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-i18n-aria-label="menu_open">
@@ -148,12 +148,29 @@
           <p class="eyebrow" data-i18n="projects_eyebrow">Proyectos</p>
           <h2 data-i18n="projects_title">Lo que estamos construyendo</h2>
         </header>
-        <div class="grid grid-3">
-          <article class="card project">
-            <span class="badge" data-i18n="badge_dev">En desarrollo</span>
-            <h3 data-i18n="proj1_title">Proyecto 1</h3>
-            <p data-i18n="proj1_text">Descripción breve del proyecto. Reemplazá este texto con los detalles reales.</p>
+        <div class="projects-layout">
+          <article class="card project project-featured">
+            <button class="project-cover-btn" type="button" aria-expanded="false" aria-controls="proj1-panel">
+              <img class="project-cover" src="assets/mi-chofer-privado-portada.png" alt="Portada del manual de Mi Chofer Privado" data-i18n-alt="proj1_cover_alt" width="766" height="919" loading="eager" />
+              <span class="project-cover-label" data-i18n="proj1_show">Ver pantallas</span>
+            </button>
+            <div class="project-content">
+              <span class="badge" data-i18n="badge_app">App Android</span>
+              <h3 data-i18n="proj1_title">Mi Chofer Privado</h3>
+              <p data-i18n="proj1_text">Aplicación para gestionar viajes privados, clientes, tarifas, gastos del vehículo y reportes.</p>
+              <div id="proj1-panel" class="project-panel" hidden>
+              <div class="project-gallery" role="group" aria-label="Pantallas de Mi Chofer Privado" data-i18n-aria-label="proj1_gallery_label">
+                <img src="assets/mi-chofer-privado-inicio.png" alt="Pantalla de inicio con resumen mensual y próximos viajes" data-i18n-alt="proj1_home_alt" width="390" height="844" loading="lazy" />
+                <img src="assets/mi-chofer-privado-viajes.png" alt="Pantalla de calendario y gestión de viajes" data-i18n-alt="proj1_trips_alt" width="390" height="844" loading="lazy" />
+                <img src="assets/mi-chofer-privado-tarifas.png" alt="Pantalla de calculadora de tarifas" data-i18n-alt="proj1_rates_alt" width="390" height="844" loading="lazy" />
+                <img src="assets/mi-chofer-privado-gastos.png" alt="Pantalla de mantenimiento, gastos y combustible" data-i18n-alt="proj1_expenses_alt" width="390" height="844" loading="lazy" />
+                <img src="assets/mi-chofer-privado-reportes.png" alt="Pantalla de reportes mensuales" data-i18n-alt="proj1_reports_alt" width="390" height="844" loading="lazy" />
+              </div>
+              <a class="btn btn-primary project-download" href="assets/manual-mi-chofer-privado.pdf" download data-i18n="proj1_link">Descargar manual completo (PDF)</a>
+              </div>
+            </div>
           </article>
+          <div class="grid grid-3 project-placeholders">
           <article class="card project">
             <span class="badge" data-i18n="badge_dev">En desarrollo</span>
             <h3 data-i18n="proj2_title">Proyecto 2</h3>
@@ -164,6 +181,7 @@
             <h3 data-i18n="proj3_title">Proyecto 3</h3>
             <p data-i18n="proj3_text">Descripción breve del proyecto. Reemplazá este texto con los detalles reales.</p>
           </article>
+          </div>
         </div>
       </div>
     </section>

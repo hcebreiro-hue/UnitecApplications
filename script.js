@@ -57,9 +57,20 @@ const TEXTS = {
 
     projects_eyebrow: "Proyectos",
     projects_title: "Lo que estamos construyendo",
+    badge_app: "App Android",
     badge_dev: "En desarrollo",
-    proj1_title: "Proyecto 1",
-    proj1_text: "Descripción breve del proyecto. Reemplazá este texto con los detalles reales.",
+    proj1_title: "Mi Chofer Privado",
+    proj1_text: "Aplicación para gestionar viajes privados, clientes, tarifas, gastos del vehículo y reportes.",
+    proj1_cover_alt: "Portada del manual de Mi Chofer Privado",
+    proj1_show: "Ver pantallas",
+    proj1_hide: "Ocultar pantallas",
+    proj1_gallery_label: "Pantallas de Mi Chofer Privado",
+    proj1_home_alt: "Pantalla de inicio con resumen mensual y próximos viajes",
+    proj1_trips_alt: "Pantalla de calendario y gestión de viajes",
+    proj1_rates_alt: "Pantalla de calculadora de tarifas",
+    proj1_expenses_alt: "Pantalla de mantenimiento, gastos y combustible",
+    proj1_reports_alt: "Pantalla de reportes mensuales",
+    proj1_link: "Descargar manual completo (PDF)",
     proj2_title: "Proyecto 2",
     proj2_text: "Descripción breve del proyecto. Reemplazá este texto con los detalles reales.",
     proj3_title: "Proyecto 3",
@@ -165,9 +176,20 @@ const TEXTS = {
 
     projects_eyebrow: "Projects",
     projects_title: "What we are building",
+    badge_app: "Android app",
     badge_dev: "In development",
-    proj1_title: "Project 1",
-    proj1_text: "Short project description. Replace this text with the real details.",
+    proj1_title: "My Private Driver",
+    proj1_text: "An app to manage private trips, clients, rates, vehicle expenses and reports.",
+    proj1_cover_alt: "Cover of the My Private Driver manual",
+    proj1_show: "View screens",
+    proj1_hide: "Hide screens",
+    proj1_gallery_label: "My Private Driver screens",
+    proj1_home_alt: "Home screen with a monthly summary and upcoming trips",
+    proj1_trips_alt: "Calendar and trip management screen",
+    proj1_rates_alt: "Rate calculator screen",
+    proj1_expenses_alt: "Maintenance, expenses and fuel screen",
+    proj1_reports_alt: "Monthly reports screen",
+    proj1_link: "Download full manual (PDF)",
     proj2_title: "Project 2",
     proj2_text: "Short project description. Replace this text with the real details.",
     proj3_title: "Project 3",
@@ -245,6 +267,10 @@ function applyLang(lang) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-alt");
+    if (dict[key] !== undefined) el.setAttribute("alt", dict[key]);
   });
   document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
     const key = el.getAttribute("data-i18n-aria-label");
@@ -419,6 +445,28 @@ function setupMobileMenu() {
   });
 }
 
+// ---------- Proyecto: pantallas desplegables ----------
+function setupProjectPanel() {
+  const toggle = document.querySelector(".project-cover-btn");
+  if (!toggle) return;
+  const panel = document.getElementById(toggle.getAttribute("aria-controls"));
+  const label = toggle.querySelector(".project-cover-label");
+  if (!panel || !label) return;
+
+  function render() {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    const key = isOpen ? "proj1_hide" : "proj1_show";
+    panel.hidden = !isOpen;
+    label.setAttribute("data-i18n", key);
+    label.textContent = TEXTS[document.documentElement.lang][key];
+  }
+
+  toggle.addEventListener("click", () => {
+    toggle.setAttribute("aria-expanded", String(toggle.getAttribute("aria-expanded") !== "true"));
+    render();
+  });
+}
+
 // ---------- Inicio ----------
 document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
@@ -430,4 +478,5 @@ document.addEventListener("DOMContentLoaded", () => {
   applyLang(detectLang());
   setupForm();
   setupMobileMenu();
+  setupProjectPanel();
 });
