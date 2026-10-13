@@ -18,6 +18,8 @@ const TEXTS = {
     nav_about: "Nosotros",
     nav_contact: "Contacto",
     nav_cta: "Pedir presupuesto",
+    menu_open: "Abrir menú",
+    menu_close: "Cerrar menú",
 
     hero_eyebrow: "Desarrollo de apps Android",
     hero_title: "Apps Android a medida, pensadas para tu negocio",
@@ -87,10 +89,28 @@ const TEXTS = {
     form_msg: "Contanos tu proyecto",
     form_submit: "Enviar consulta",
     form_note: "Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.",
-    form_error: "Completá los campos obligatorios con datos válidos.",
+    form_error: "Revisá los campos marcados antes de enviar.",
+    form_error_name: "Ingresá tu nombre.",
+    form_error_email: "Ingresá un email válido.",
+    form_error_message: "Contanos un poco más: el mensaje debe tener al menos 10 caracteres.",
+    form_privacy_prefix: "Al enviar, aceptás la",
+    form_privacy_link: "Política de privacidad",
 
     footer_rights: "Todos los derechos reservados.",
+    footer_privacy: "Política de privacidad",
     footer_top: "Volver arriba",
+
+    privacy_eyebrow: "Legal",
+    privacy_title: "Política de privacidad",
+    privacy_intro: "En Unitec Applications respetamos tu privacidad y minimizamos el tratamiento de datos.",
+    privacy_data_title: "Datos del formulario",
+    privacy_data_text: "El formulario no guarda datos en este sitio ni los envía a un servidor. Al enviarlo, se abre tu programa de correo con la información que ingresaste para que puedas decidir si querés enviarla.",
+    privacy_tracking_title: "Cookies y analítica",
+    privacy_tracking_text: "No usamos cookies de analítica, publicidad ni seguimiento de terceros.",
+    privacy_contact_title: "Contacto",
+    privacy_contact_text: "Si nos escribís por email o WhatsApp, usaremos tus datos únicamente para responder tu consulta.",
+    privacy_meta_title: "Unitec Applications | Política de privacidad",
+    privacy_meta_description: "Política de privacidad de Unitec Applications.",
 
     wa_message: "Hola, quisiera pedir un presupuesto para una app Android.",
     mail_subject_prefix: "Consulta desde el sitio",
@@ -106,6 +126,8 @@ const TEXTS = {
     nav_about: "About",
     nav_contact: "Contact",
     nav_cta: "Request a quote",
+    menu_open: "Open menu",
+    menu_close: "Close menu",
 
     hero_eyebrow: "Android app development",
     hero_title: "Custom Android apps, built for your business",
@@ -175,10 +197,28 @@ const TEXTS = {
     form_msg: "Tell us about your project",
     form_submit: "Send inquiry",
     form_note: "Submitting opens your email app with the details filled in. We don't store anything on this site.",
-    form_error: "Please fill in the required fields with valid data.",
+    form_error: "Please review the highlighted fields before sending.",
+    form_error_name: "Enter your name.",
+    form_error_email: "Enter a valid email address.",
+    form_error_message: "Tell us a little more: the message must be at least 10 characters long.",
+    form_privacy_prefix: "By submitting, you accept the",
+    form_privacy_link: "Privacy policy",
 
     footer_rights: "All rights reserved.",
+    footer_privacy: "Privacy policy",
     footer_top: "Back to top",
+
+    privacy_eyebrow: "Legal",
+    privacy_title: "Privacy policy",
+    privacy_intro: "At Unitec Applications, we respect your privacy and minimize data processing.",
+    privacy_data_title: "Form data",
+    privacy_data_text: "The form does not store data on this site or send it to a server. When you submit it, your email app opens with the information you entered so you can decide whether to send it.",
+    privacy_tracking_title: "Cookies and analytics",
+    privacy_tracking_text: "We do not use analytics, advertising or third-party tracking cookies.",
+    privacy_contact_title: "Contact",
+    privacy_contact_text: "If you contact us by email or WhatsApp, we will use your data only to reply to your inquiry.",
+    privacy_meta_title: "Unitec Applications | Privacy policy",
+    privacy_meta_description: "Privacy policy for Unitec Applications.",
 
     wa_message: "Hi, I would like a quote for an Android app.",
     mail_subject_prefix: "Inquiry from the website",
@@ -206,20 +246,70 @@ function applyLang(lang) {
     const key = el.getAttribute("data-i18n");
     if (dict[key] !== undefined) el.textContent = dict[key];
   });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (dict[key] !== undefined) el.setAttribute("aria-label", dict[key]);
+  });
 
   document.getElementById("lang-select").value = lang;
-  document.title = lang === "en"
-    ? "Unitec Applications | Android App Development"
-    : "Unitec Applications | Desarrollo de apps Android";
-  document.querySelector('meta[name="description"]').setAttribute(
-    "content",
-    lang === "en"
-      ? "Unitec Applications builds custom Android apps for your business. No-cost quote."
-      : "Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo."
-  );
+  const metadata = getPageMetadata(lang);
+  document.title = metadata.title;
+  document.querySelector('meta[name="description"]')?.setAttribute("content", metadata.description);
+
+  updateSocialMetadata(lang);
+  updateOrganizationSchema();
 
   localStorage.setItem(LANG_KEY, lang);
   updateContactLinks(lang);
+}
+
+// Mantiene los metadatos de SEO alineados con el idioma elegido.
+function updateSocialMetadata(lang) {
+  const { title, description } = getPageMetadata(lang);
+
+  ["og:title", "twitter:title"].forEach((property) => {
+    const selector = property.startsWith("og:") ? `meta[property="${property}"]` : `meta[name="${property}"]`;
+    document.querySelector(selector)?.setAttribute("content", title);
+  });
+  ["og:description", "twitter:description"].forEach((property) => {
+    const selector = property.startsWith("og:") ? `meta[property="${property}"]` : `meta[name="${property}"]`;
+    document.querySelector(selector)?.setAttribute("content", description);
+  });
+}
+
+function getPageMetadata(lang) {
+  const dict = TEXTS[lang];
+  if (document.body.dataset.page === "privacy") {
+    return {
+      title: dict.privacy_meta_title,
+      description: dict.privacy_meta_description,
+    };
+  }
+
+  return lang === "en"
+    ? {
+      title: "Unitec Applications | Android App Development",
+      description: "Unitec Applications builds custom Android apps for your business. No-cost quote.",
+    }
+    : {
+      title: "Unitec Applications | Desarrollo de apps Android",
+      description: "Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo.",
+    };
+}
+
+// Genera los datos estructurados desde CONFIG para evitar datos de contacto desactualizados.
+function updateOrganizationSchema() {
+  const schema = document.getElementById("organization-schema");
+  if (!schema) return;
+
+  schema.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: CONFIG.companyName,
+    url: "https://unitecapplications.com/",
+    email: CONFIG.contactEmail,
+    telephone: `+${CONFIG.whatsappNumber}`,
+  });
 }
 
 // ---------- Enlaces de contacto ----------
@@ -227,19 +317,30 @@ function updateContactLinks(lang) {
   const dict = TEXTS[lang];
 
   const wa = document.getElementById("whatsapp-link");
-  wa.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(dict.wa_message)}`;
+  if (wa) wa.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(dict.wa_message)}`;
 
   const emailLink = document.getElementById("email-link");
-  emailLink.href = `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(dict.mail_subject_prefix)}`;
+  if (emailLink) emailLink.href = `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(dict.mail_subject_prefix)}`;
 
   const direct = document.getElementById("email-direct");
-  direct.href = `mailto:${CONFIG.contactEmail}`;
-  direct.textContent = CONFIG.contactEmail;
+  if (direct) {
+    direct.href = `mailto:${CONFIG.contactEmail}`;
+    direct.textContent = CONFIG.contactEmail;
+  }
 }
 
 // ---------- Formulario ----------
 function setupForm() {
   const form = document.getElementById("contact-form");
+  if (!form) return;
+  const status = document.getElementById("form-status");
+
+  function setFieldError(field, message) {
+    const error = document.getElementById(`${field.id}-error`);
+    field.classList.toggle("error", Boolean(message));
+    field.setAttribute("aria-invalid", String(Boolean(message)));
+    error.textContent = message;
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -250,18 +351,19 @@ function setupForm() {
     const email = form.email.value.trim();
     const message = form.message.value.trim();
 
-    // Validación básica
-    let valid = true;
-    [form.name, form.email, form.message].forEach((field) => field.classList.remove("error"));
-
-    if (!name) { form.name.classList.add("error"); valid = false; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.email.classList.add("error"); valid = false; }
-    if (message.length < 10) { form.message.classList.add("error"); valid = false; }
+    // Validación accesible: cada campo informa su propio error.
+    setFieldError(form.name, name ? "" : dict.form_error_name);
+    setFieldError(form.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "" : dict.form_error_email);
+    setFieldError(form.message, message.length >= 10 ? "" : dict.form_error_message);
+    const valid = [form.name, form.email, form.message].every((field) => field.getAttribute("aria-invalid") === "false");
 
     if (!valid) {
-      alert(dict.form_error);
+      status.textContent = dict.form_error;
+      form.querySelector('[aria-invalid="true"]').focus();
       return;
     }
+
+    status.textContent = "";
 
     const typeSelect = form.type;
     const typeLabel = typeSelect.options[typeSelect.selectedIndex].text;
@@ -283,13 +385,49 @@ function setupForm() {
   });
 }
 
+// ---------- Menú móvil ----------
+function setupMobileMenu() {
+  const toggle = document.querySelector(".menu-toggle");
+  const nav = document.getElementById("primary-nav");
+  if (!toggle || !nav) return;
+
+  function closeMenu() {
+    nav.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("data-i18n-aria-label", "menu_open");
+    toggle.querySelector(".visually-hidden").setAttribute("data-i18n", "menu_open");
+    toggle.querySelector(".visually-hidden").textContent = TEXTS[document.documentElement.lang].menu_open;
+    toggle.setAttribute("aria-label", TEXTS[document.documentElement.lang].menu_open);
+  }
+
+  toggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    const key = isOpen ? "menu_close" : "menu_open";
+    toggle.setAttribute("data-i18n-aria-label", key);
+    toggle.querySelector(".visually-hidden").setAttribute("data-i18n", key);
+    toggle.querySelector(".visually-hidden").textContent = TEXTS[document.documentElement.lang][key];
+    toggle.setAttribute("aria-label", TEXTS[document.documentElement.lang][key]);
+  });
+
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("is-open")) {
+      closeMenu();
+      toggle.focus();
+    }
+  });
+}
+
 // ---------- Inicio ----------
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
 
   const select = document.getElementById("lang-select");
-  select.addEventListener("change", (e) => applyLang(e.target.value));
+  if (select) select.addEventListener("change", (e) => applyLang(e.target.value));
 
   applyLang(detectLang());
   setupForm();
+  setupMobileMenu();
 });

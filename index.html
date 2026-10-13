@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Unitec Applications | Desarrollo de apps Android</title>
   <meta name="description" content="Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo." />
+  <link rel="canonical" href="https://unitecapplications.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://unitecapplications.com/" />
+  <meta property="og:title" content="Unitec Applications | Desarrollo de apps Android" />
+  <meta property="og:description" content="Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo." />
+  <meta property="og:image" content="https://unitecapplications.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Unitec Applications | Desarrollo de apps Android" />
+  <meta name="twitter:description" content="Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo." />
+  <meta name="twitter:image" content="https://unitecapplications.com/assets/og-image.png" />
+  <script id="organization-schema" type="application/ld+json"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d1121b'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,12 +28,19 @@
 
   <header class="site-header">
     <div class="container nav">
-      <a href="#inicio" class="brand">
+      <a href="#inicio" class="brand" aria-label="Unitec Applications">
         <span class="brand-mark" aria-hidden="true">U</span>
         <span class="brand-text">Unitec <strong>Applications</strong></span>
       </a>
 
-      <nav class="nav-links" aria-label="Principal">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-i18n-aria-label="menu_open">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" focusable="false">
+          <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
+        </svg>
+        <span class="visually-hidden" data-i18n="menu_open">Abrir menú</span>
+      </button>
+
+      <nav id="primary-nav" class="nav-links" aria-label="Principal">
         <a href="#servicios" data-i18n="nav_services">Servicios</a>
         <a href="#proceso" data-i18n="nav_process">Proceso</a>
         <a href="#proyectos" data-i18n="nav_projects">Proyectos</a>
@@ -182,11 +202,13 @@
         <form id="contact-form" class="form" novalidate>
           <div class="field">
             <label for="f-name" data-i18n="form_name">Nombre</label>
-            <input id="f-name" name="name" type="text" required autocomplete="name" />
+            <input id="f-name" name="name" type="text" required autocomplete="name" aria-describedby="f-name-error" />
+            <p id="f-name-error" class="field-error" aria-live="polite"></p>
           </div>
           <div class="field">
             <label for="f-email" data-i18n="form_email">Email</label>
-            <input id="f-email" name="email" type="email" required autocomplete="email" />
+            <input id="f-email" name="email" type="email" required autocomplete="email" aria-describedby="f-email-error" />
+            <p id="f-email-error" class="field-error" aria-live="polite"></p>
           </div>
           <div class="field">
             <label for="f-type" data-i18n="form_type">Tipo de proyecto</label>
@@ -199,10 +221,12 @@
           </div>
           <div class="field">
             <label for="f-msg" data-i18n="form_msg">Contanos tu proyecto</label>
-            <textarea id="f-msg" name="message" rows="5" required></textarea>
+            <textarea id="f-msg" name="message" rows="5" required aria-describedby="f-msg-error"></textarea>
+            <p id="f-msg-error" class="field-error" aria-live="polite"></p>
           </div>
           <button type="submit" class="btn btn-primary btn-block" data-i18n="form_submit">Enviar consulta</button>
-          <p class="form-note" data-i18n="form_note">Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.</p>
+          <p id="form-status" class="form-status" role="alert" aria-live="assertive"></p>
+          <p class="form-note"><span data-i18n="form_note">Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.</span> <span data-i18n="form_privacy_prefix">Al enviar, aceptás la</span> <a href="privacidad.html" data-i18n="form_privacy_link">política de privacidad</a>.</p>
         </form>
       </div>
     </section>
@@ -212,7 +236,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>© <span id="year"></span> Unitec Applications. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
-      <p><a href="#inicio" data-i18n="footer_top">Volver arriba</a></p>
+      <p><a href="privacidad.html" data-i18n="footer_privacy">Política de privacidad</a> · <a href="#inicio" data-i18n="footer_top">Volver arriba</a></p>
     </div>
   </footer>
 
