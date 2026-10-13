@@ -1,0 +1,16 @@
+# Archivos del sistema operativo
+.DS_Store
+
+# Dependencias
+node_modules/
+
+# Configuración local del editor
+.vscode/
+
+# Archivos temporales y copias de respaldo de editores
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+*.bak

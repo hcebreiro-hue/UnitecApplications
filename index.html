@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unitec Applications | Desarrollo de apps Android</title>
+  <meta name="description" content="Unitec Applications desarrolla aplicaciones Android a medida para tu negocio. Presupuesto sin cargo." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d1121b'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#inicio" class="brand">
+        <span class="brand-mark" aria-hidden="true">U</span>
+        <span class="brand-text">Unitec <strong>Applications</strong></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#servicios" data-i18n="nav_services">Servicios</a>
+        <a href="#proceso" data-i18n="nav_process">Proceso</a>
+        <a href="#proyectos" data-i18n="nav_projects">Proyectos</a>
+        <a href="#nosotros" data-i18n="nav_about">Nosotros</a>
+        <a href="#contacto" data-i18n="nav_contact">Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        <label class="lang-switch">
+          <span class="visually-hidden">Idioma / Language</span>
+          <select id="lang-select" aria-label="Idioma / Language">
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+          </select>
+        </label>
+        <a href="#contacto" class="btn btn-small" data-i18n="nav_cta">Pedir presupuesto</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow" data-i18n="hero_eyebrow">Desarrollo de apps Android</p>
+        <h1 data-i18n="hero_title">Apps Android a medida, pensadas para tu negocio</h1>
+        <p class="lead" data-i18n="hero_lead">Diseñamos, desarrollamos y publicamos aplicaciones móviles con tecnología moderna, código mantenible y acompañamiento real en cada etapa.</p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-primary" data-i18n="hero_cta_primary">Pedir presupuesto</a>
+          <a href="#servicios" class="btn btn-ghost" data-i18n="hero_cta_secondary">Ver servicios</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong data-i18n="stat1_value">Kotlin</strong><span data-i18n="stat1_label">Lenguaje oficial de Android</span></li>
+          <li><strong data-i18n="stat2_value">Compose</strong><span data-i18n="stat2_label">Interfaces modernas y fluidas</span></li>
+          <li><strong data-i18n="stat3_value">Google Play</strong><span data-i18n="stat3_label">Publicación y mantenimiento</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="section">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-i18n="services_eyebrow">Servicios</p>
+          <h2 data-i18n="services_title">Todo lo que necesitás para tener tu app</h2>
+        </header>
+        <div class="grid grid-4">
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">01</div>
+            <h3 data-i18n="svc1_title">Desarrollo de apps</h3>
+            <p data-i18n="svc1_text">Aplicaciones nativas para Android con Kotlin y Jetpack Compose, a medida de tus procesos.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">02</div>
+            <h3 data-i18n="svc2_title">Diseño de interfaz</h3>
+            <p data-i18n="svc2_text">Pantallas claras, consistentes y pensadas para que cualquier usuario las entienda.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">03</div>
+            <h3 data-i18n="svc3_title">Backend y datos</h3>
+            <p data-i18n="svc3_text">Bases de datos, usuarios, sincronización y servicios en la nube, con seguridad desde el diseño.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">04</div>
+            <h3 data-i18n="svc4_title">Publicación y soporte</h3>
+            <p data-i18n="svc4_text">Publicamos en Google Play y te acompañamos con actualizaciones y mantenimiento.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section id="proceso" class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-i18n="process_eyebrow">Cómo trabajamos</p>
+          <h2 data-i18n="process_title">Un proceso claro, con entregas parciales</h2>
+        </header>
+        <ol class="steps">
+          <li>
+            <h3 data-i18n="step1_title">Consulta</h3>
+            <p data-i18n="step1_text">Entendemos tu idea, tus usuarios y tus objetivos.</p>
+          </li>
+          <li>
+            <h3 data-i18n="step2_title">Propuesta</h3>
+            <p data-i18n="step2_text">Definimos alcance, plazos y presupuesto a medida.</p>
+          </li>
+          <li>
+            <h3 data-i18n="step3_title">Desarrollo</h3>
+            <p data-i18n="step3_text">Avanzamos por etapas y te mostramos versiones de prueba durante todo el proceso.</p>
+          </li>
+          <li>
+            <h3 data-i18n="step4_title">Publicación</h3>
+            <p data-i18n="step4_text">Subimos la app a Google Play y dejamos todo documentado.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="section">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-i18n="projects_eyebrow">Proyectos</p>
+          <h2 data-i18n="projects_title">Lo que estamos construyendo</h2>
+        </header>
+        <div class="grid grid-3">
+          <article class="card project">
+            <span class="badge" data-i18n="badge_dev">En desarrollo</span>
+            <h3 data-i18n="proj1_title">Proyecto 1</h3>
+            <p data-i18n="proj1_text">Descripción breve del proyecto. Reemplazá este texto con los detalles reales.</p>
+          </article>
+          <article class="card project">
+            <span class="badge" data-i18n="badge_dev">En desarrollo</span>
+            <h3 data-i18n="proj2_title">Proyecto 2</h3>
+            <p data-i18n="proj2_text">Descripción breve del proyecto. Reemplazá este texto con los detalles reales.</p>
+          </article>
+          <article class="card project">
+            <span class="badge" data-i18n="badge_dev">En desarrollo</span>
+            <h3 data-i18n="proj3_title">Proyecto 3</h3>
+            <p data-i18n="proj3_text">Descripción breve del proyecto. Reemplazá este texto con los detalles reales.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section id="nosotros" class="section section-alt">
+      <div class="container about">
+        <div>
+          <p class="eyebrow" data-i18n="about_eyebrow">Nosotros</p>
+          <h2 data-i18n="about_title">Unitec Applications</h2>
+          <p data-i18n="about_text">Somos un equipo dedicado al desarrollo de software. Creemos en la comunicación directa, los plazos cumplidos y el código que se puede mantener en el tiempo.</p>
+        </div>
+        <ul class="values">
+          <li data-i18n="value1">Comunicación directa con quien desarrolla</li>
+          <li data-i18n="value2">Presupuestos claros, sin sorpresas</li>
+          <li data-i18n="value3">Código ordenado y documentado</li>
+          <li data-i18n="value4">Acompañamiento después de publicar</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section">
+      <div class="container contact">
+        <div>
+          <p class="eyebrow" data-i18n="contact_eyebrow">Contacto</p>
+          <h2 data-i18n="contact_title">Contanos tu idea</h2>
+          <p data-i18n="contact_text">Respondemos con una propuesta inicial sin cargo. Podés escribirnos por WhatsApp o completar el formulario.</p>
+          <div class="contact-channels">
+            <a id="whatsapp-link" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener" data-i18n="contact_whatsapp">Escribir por WhatsApp</a>
+            <a id="email-link" class="btn btn-ghost" href="#" data-i18n="contact_email_btn">Enviar un email</a>
+          </div>
+          <p class="muted"><span data-i18n="contact_direct">Email directo:</span> <a id="email-direct" href="#"></a></p>
+        </div>
+
+        <form id="contact-form" class="form" novalidate>
+          <div class="field">
+            <label for="f-name" data-i18n="form_name">Nombre</label>
+            <input id="f-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="f-email" data-i18n="form_email">Email</label>
+            <input id="f-email" name="email" type="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="f-type" data-i18n="form_type">Tipo de proyecto</label>
+            <select id="f-type" name="type">
+              <option value="app" data-i18n="type_app">Aplicación Android nueva</option>
+              <option value="maint" data-i18n="type_maint">Mantenimiento o mejoras</option>
+              <option value="publish" data-i18n="type_publish">Publicación en Google Play</option>
+              <option value="other" data-i18n="type_other">Otro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-msg" data-i18n="form_msg">Contanos tu proyecto</label>
+            <textarea id="f-msg" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="form_submit">Enviar consulta</button>
+          <p class="form-note" data-i18n="form_note">Al enviar, se abre tu programa de correo con los datos completados. No guardamos nada en este sitio.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Unitec Applications. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
+      <p><a href="#inicio" data-i18n="footer_top">Volver arriba</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
