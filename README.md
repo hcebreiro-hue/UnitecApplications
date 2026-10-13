@@ -44,7 +44,8 @@ Se pega en el Worker `unitec-mail` de Cloudflare. Configuración:
 
 - `_headers`: cabeceras de seguridad (CSP, nosniff, etc.) y caché de `/assets/*`. Si agregás un dominio externo (analítica, otro Worker), sumalo a la CSP.
 - `404.html`: página de error propia. Cloudflare la usa solo con `not_found_handling = "404-page"` en la configuración de assets del Worker.
-- Al publicar con **Direct Upload** subí solo el sitio: `index.html`, `privacidad.html`, `404.html`, `styles.css`, `script.js`, `robots.txt`, `sitemap.xml`, `_headers` y `assets/`. No subas `worker/`, `Logo/` ni `README.md`.
+- Si publicás a mano desde el panel, subí solo el sitio: `index.html`, `privacidad.html`, `404.html`, `styles.css`, `script.js`, `robots.txt`, `sitemap.xml`, `_headers` y `assets/`. No subas `worker/`, `Logo/` ni `README.md`. `./deploy.sh` ya lo hace por vos.
+- `wrangler.jsonc`: configuración del despliegue. Solo cubre los assets del sitio; el Worker `unitec-mail` se gestiona aparte.
 
 El JSON-LD de tipo `Organization` se genera desde este bloque al cargar la página, por lo que email, teléfono y nombre quedan sincronizados.
 
@@ -66,18 +67,26 @@ es: { example_text: "Texto en español" },
 en: { example_text: "Text in English" },
 ```
 
-## Publicar en Cloudflare Pages
+## Publicar (`./deploy.sh`)
 
-1. Subí esta carpeta a un repositorio Git remoto (GitHub, GitLab o similar).
-2. En Cloudflare Dashboard, entrá a **Workers & Pages** y elegí **Create application** → **Pages** → **Connect to Git**.
-3. Seleccioná el repositorio y la rama de publicación.
-4. Usá estas opciones de compilación:
-   - **Framework preset:** `None`.
-   - **Build command:** dejalo vacío.
-   - **Build output directory:** `/`.
-5. Confirmá el despliegue.
-6. En **Custom domains**, asociá `unitecapplications.com` y verificá que el DNS apunte a Cloudflare.
-7. Después de publicar, comprobá que estén disponibles `https://unitecapplications.com/robots.txt` y `https://unitecapplications.com/sitemap.xml`.
+El sitio se sirve desde el Worker con assets `sweet-bar-05ae` (dominio `unitecapplications.com`). Se publica desde la terminal con `wrangler`, que ya debe tener la sesión iniciada (`npx wrangler whoami`; si no, `npx wrangler login`).
+
+```sh
+./deploy.sh             # valida, arma dist/, despliega y verifica producción
+./deploy.sh --dry-run   # solo valida y arma dist/, sin desplegar
+```
+
+El script:
+
+1. Valida `script.js` con `node --check`.
+2. Arma `dist/` con solo los archivos del sitio (no incluye `worker/`, `Logo/`, `README.md` ni `assets/LEEME.txt`).
+3. Despliega con `wrangler deploy`, según `wrangler.jsonc` (`404-page` y Preview URLs desactivadas).
+4. Compara `index.html`, `styles.css` y `script.js` de producción con los locales y comprueba que una ruta inexistente devuelva 404.
+5. Regenera `../unitec-applications-publicar.zip`, por si hace falta una subida manual desde el panel.
+
+`dist/` y `.wrangler/` están en `.gitignore`. Si agregás un archivo nuevo a la raíz del sitio, sumalo a la línea `cp` de `deploy.sh`; la carpeta `assets/` se copia entera.
+
+La carpeta `../unitec-applications-publicar` quedó sin uso: reemplazala por `dist/`.
 
 ## Archivos principales
 

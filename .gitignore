@@ -4,6 +4,10 @@
 # Dependencias
 node_modules/
 
+# Carpeta generada por deploy.sh
+dist/
+.wrangler/
+
 # Configuración local del editor
 .vscode/
 

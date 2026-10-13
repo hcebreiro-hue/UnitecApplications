@@ -1,0 +1,10 @@
+{
+  // Worker con assets que sirve https://unitecapplications.com
+  "name": "sweet-bar-05ae",
+  "compatibility_date": "2026-10-13",
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
