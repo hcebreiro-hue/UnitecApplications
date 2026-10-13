@@ -69,7 +69,10 @@ const TEXTS = {
     proj1_trips_alt: "Pantalla de calendario y gestión de viajes",
     proj1_rates_alt: "Pantalla de calculadora de tarifas",
     proj1_expenses_alt: "Pantalla de mantenimiento, gastos y combustible",
-    proj1_reports_alt: "Pantalla de reportes mensuales",
+    proj1_home_cap: "Inicio",
+    proj1_trips_cap: "Viajes",
+    proj1_rates_cap: "Tarifas",
+    proj1_expenses_cap: "Auto",
     proj1_link: "Descargar manual completo (PDF)",
     proj2_title: "Proyecto 2",
     proj2_text: "Descripción breve del proyecto. Reemplazá este texto con los detalles reales.",
@@ -188,7 +191,10 @@ const TEXTS = {
     proj1_trips_alt: "Calendar and trip management screen",
     proj1_rates_alt: "Rate calculator screen",
     proj1_expenses_alt: "Maintenance, expenses and fuel screen",
-    proj1_reports_alt: "Monthly reports screen",
+    proj1_home_cap: "Home",
+    proj1_trips_cap: "Trips",
+    proj1_rates_cap: "Rates",
+    proj1_expenses_cap: "Car",
     proj1_link: "Download full manual (PDF)",
     proj2_title: "Project 2",
     proj2_text: "Short project description. Replace this text with the real details.",
@@ -451,12 +457,14 @@ function setupProjectPanel() {
   if (!toggle) return;
   const panel = document.getElementById(toggle.getAttribute("aria-controls"));
   const label = toggle.querySelector(".project-cover-label");
-  if (!panel || !label) return;
+  const card = toggle.closest(".project-featured");
+  if (!panel || !label || !card) return;
 
   function render() {
     const isOpen = toggle.getAttribute("aria-expanded") === "true";
     const key = isOpen ? "proj1_hide" : "proj1_show";
     panel.hidden = !isOpen;
+    card.classList.toggle("is-open", isOpen);
     label.setAttribute("data-i18n", key);
     label.textContent = TEXTS[document.documentElement.lang][key];
   }

@@ -317,24 +317,39 @@ p { margin: 0 0 1rem; }
 .project-content { min-width: 0; }
 .project-panel { margin-top: 1.5rem; }
 .project-panel[hidden] { display: none; }
-.project-gallery {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  scroll-snap-type: x proximity;
+/* Con las pantallas abiertas se oculta la portada y la tarjeta usa todo el ancho */
+.project-featured.is-open { grid-template-columns: 1fr; }
+.project-featured.is-open .project-cover { display: none; }
+.project-featured.is-open .project-cover-btn {
+  width: auto;
+  justify-self: start;
 }
-.project-gallery img {
-  flex: 1 0 140px;
-  max-width: 190px;
-  min-width: 0;
+.project-featured.is-open .project-cover-label { margin-top: 0; }
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  max-width: 960px;
+  margin-inline: auto;
+}
+.project-shot { margin: 0; text-align: center; }
+.project-shot img {
+  display: block;
+  width: 100%;
   height: auto;
   aspect-ratio: 390 / 844;
-  object-fit: contain;
-  scroll-snap-align: start;
+  object-fit: cover;
+  object-position: top left;
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: 22px;
   background: var(--bg-alt);
+  box-shadow: 0 8px 20px rgba(21, 23, 28, 0.12);
+}
+.project-shot figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
 }
 .project p { color: var(--muted); font-size: 0.95rem; margin: 0; }
 .project-download {
@@ -518,7 +533,7 @@ p { margin: 0 0 1rem; }
   .grid-4, .grid-3, .steps, .hero-stats { grid-template-columns: 1fr; }
   .project-featured { grid-template-columns: 1fr; }
   .project-cover-btn { width: min(100%, 260px); margin-inline: auto; }
-  .project-gallery img { flex-basis: 150px; }
+  .project-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 420px; }
   .nav-actions .btn-small { display: none; }
   .brand-logo { height: 54px; }
   .form { padding: 1.4rem; }
