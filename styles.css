@@ -386,11 +386,11 @@ p { margin: 0 0 1rem; }
 .bento-main p { font-size: 1.05rem; max-width: 520px; }
 .bento-dark {
   grid-column: span 2;
-  background: linear-gradient(135deg, #1d2027 0%, var(--dark) 100%);
-  border-color: var(--dark);
+  background: linear-gradient(135deg, #2c3e7a 0%, #16224d 100%);
+  border-color: #16224d;
   color: #fff;
 }
-.bento-dark p { color: #b8bec9; }
+.bento-dark p { color: #c9d1ec; }
 .bento-dark .card-icon { background: rgba(255, 255, 255, 0.1); color: #fff; }
 
 .badge {
