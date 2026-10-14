@@ -63,12 +63,19 @@ const TEXTS = {
     projects_title: "Lo que estamos construyendo",
     badge_app: "App Android",
     badge_dev: "En desarrollo",
-    proj1_title: "Mi Chofer Privado",
-    proj1_text: "Aplicación para gestionar viajes privados, clientes, tarifas, gastos del vehículo y reportes.",
-    proj1_cover_alt: "Portada del manual de Mi Chofer Privado",
+    proj1_title: "Senda",
+    proj1_text: "Aplicación para gestionar viajes privados, clientes, tarifas, gastos del vehículo y reportes. Elegí al cliente desde tus contactos o tus frecuentes, y compartí tu agenda web.",
+    proj1_cover_alt: "Portada del manual de Senda",
+    proj1_demo: "Pedir demo",
+    proj1_demo_subject: "Quiero una demo de Senda",
+    proj1_demo_body: "Hola, quisiera probar Senda.\n\nMi nombre: \nMi WhatsApp: \n",
+    proj1_contacts_alt: "Elegir al cliente desde los contactos del teléfono",
+    proj1_frequent_alt: "Lista de clientes frecuentes",
+    proj1_contacts_cap: "Contactos",
+    proj1_frequent_cap: "Frecuentes",
     proj1_show: "Ver pantallas",
     proj1_hide: "Ocultar pantallas",
-    proj1_gallery_label: "Pantallas de Mi Chofer Privado",
+    proj1_gallery_label: "Pantallas de Senda",
     proj1_home_alt: "Pantalla de inicio con resumen mensual y próximos viajes",
     proj1_trips_alt: "Pantalla de calendario y gestión de viajes",
     proj1_rates_alt: "Pantalla de calculadora de tarifas",
@@ -207,12 +214,19 @@ const TEXTS = {
     projects_title: "What we are building",
     badge_app: "Android app",
     badge_dev: "In development",
-    proj1_title: "My Private Driver",
-    proj1_text: "An app to manage private trips, clients, rates, vehicle expenses and reports.",
-    proj1_cover_alt: "Cover of the My Private Driver manual",
+    proj1_title: "Senda",
+    proj1_text: "An app to manage private trips, clients, rates, vehicle expenses and reports. Pick a client from your contacts or your frequent clients, and share your web schedule.",
+    proj1_cover_alt: "Cover of the Senda manual",
+    proj1_demo: "Request a demo",
+    proj1_demo_subject: "I would like a Senda demo",
+    proj1_demo_body: "Hi, I would like to try Senda.\n\nMy name: \nMy WhatsApp: \n",
+    proj1_contacts_alt: "Choosing a client from the phone contacts",
+    proj1_frequent_alt: "Frequent clients list",
+    proj1_contacts_cap: "Contacts",
+    proj1_frequent_cap: "Frequent",
     proj1_show: "View screens",
     proj1_hide: "Hide screens",
-    proj1_gallery_label: "My Private Driver screens",
+    proj1_gallery_label: "Senda screens",
     proj1_home_alt: "Home screen with a monthly summary and upcoming trips",
     proj1_trips_alt: "Calendar and trip management screen",
     proj1_rates_alt: "Rate calculator screen",
@@ -405,6 +419,13 @@ function updateContactLinks(lang) {
 
   const emailLink = document.getElementById("email-link");
   if (emailLink) emailLink.href = `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(dict.mail_subject_prefix)}`;
+
+  const demo = document.getElementById("demo-link");
+  if (demo) {
+    demo.href =
+      `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(dict.proj1_demo_subject)}` +
+      `&body=${encodeURIComponent(dict.proj1_demo_body)}`;
+  }
 
   const direct = document.getElementById("email-direct");
   if (direct) {

@@ -253,7 +253,7 @@ p { margin: 0 0 1rem; }
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 390 / 844;
+  aspect-ratio: 390 / 867;
   object-fit: cover;
   object-position: top left;
   border-radius: 28px;
@@ -470,17 +470,18 @@ p { margin: 0 0 1rem; }
 .project-featured.is-open .project-cover-label { margin-top: 0; }
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.75rem, 2vw, 1.5rem);
-  max-width: 960px;
+  max-width: 720px;
   margin-inline: auto;
 }
+.project-actions { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .project-shot { margin: 0; text-align: center; }
 .project-shot img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 390 / 844;
+  aspect-ratio: 390 / 867;
   object-fit: cover;
   object-position: top left;
   border: 1px solid var(--border);
